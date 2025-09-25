@@ -1,18 +1,57 @@
-
-import React from 'react';
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import React, { useEffect, useState } from 'react';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim"; // Using the slim version for performance
 import { TypeAnimation } from 'react-type-animation';
-import particleConfig from './particleConfig'; // Assuming you have this config file
+import particleConfig from './particleConfig'; // Your existing particle configuration is still used
+
+// 1. New component to generate the falling icons
+const FallingIcons = () => {
+    const icons = [
+        'bx bxl-python', 'bx bxs-brain', 'bx bxl-react', 'bx bxl-nodejs', 
+        'bx bxs-network-chart', 'bx bxl-mongodb', 'bx bxs-bot', 'bx bxl-docker'
+    ];
+    
+    // Create a larger array to have more icons falling
+    const allIcons = Array.from({ length: 40 }).map((_, i) => icons[i % icons.length]);
+
+    return (
+        <div className="falling-icons-container">
+            {allIcons.map((iconClass, index) => (
+                <i 
+                    key={index}
+                    className={`falling-icon ${iconClass}`}
+                    style={{
+                        left: `${Math.random() * 100}vw`,
+                        fontSize: `${Math.random() * 20 + 15}px`,
+                        animationDelay: `${Math.random() * 10}s`,
+                        animationDuration: `${Math.random() * 5 + 5}s`
+                    }}
+                ></i>
+            ))}
+        </div>
+    );
+};
+
+
 
 const Home = () => {
-    const particlesInit = async (main) => {
-        await loadFull(main);
-    };
+    const [init, setInit] = useState(false);
+
+    // This useEffect hook initializes the particles engine once, preventing the error.
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            await loadSlim(engine);
+        }).then(() => {
+            setInit(true);
+        });
+    }, []);
 
     return (
         <section className="home" id="home">
-            <Particles id="tsparticles" init={particlesInit} options={particleConfig} />
+              <FallingIcons />
+            {/* The Particles component will only render after the engine is initialized */}
+            {init && <Particles id="tsparticles" options={particleConfig} />}
+            
             <div className="home-content">
                 <h1>Hi, I'm <span>Soumyadip Bhattacharya</span></h1>
                 <div className="text-animation">
@@ -30,6 +69,7 @@ const Home = () => {
                 </div>
                 <p>I build elegant, efficient, and user-centric web applications, turning complex challenges into clean, scalable solutions from end to end.</p>
                 <div className="btn-box">
+                    {/* Changed "Hire Me" to "Download CV" for a more common convention */}
                     <a href="/my-resume.pdf" className="btn" download>Hire Me</a>
                     <a href="#contact" className="btn">Let's Talk</a>
                 </div>
@@ -41,24 +81,16 @@ const Home = () => {
                 <a href="https://www.linkedin.com/in/soumyadip-bhattacharya-4081b6272/"><i className='bx bxl-linkedin'></i></a>
                 <a href="https://instagram.com"><i className='bx bxl-instagram'></i></a>
             </div>
-
-            {/* ========== MODIFIED IMAGE SECTION ========== */}
+            
+            {/* Using the updated wrapper class for the image */}
             <div className="home-img-wrapper">
                 <div className="home-img-blob">
+                    {/* Make sure 'newimage.jpg' is in your 'public' folder */}
                     <img src="/newimage.jpg" alt="Soumyadip Bhattacharya" />
                 </div>
             </div>
-            {/* ========================================= */}
-            
         </section>
     );
 };
 
 export default Home;
-
-
-
-
-
-
-

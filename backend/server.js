@@ -1,4 +1,3 @@
-
 // backend/server.js
 
 // 1. IMPORTS
@@ -8,6 +7,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const connectDB = require('./config/db');
 const Contact = require('./models/Contact');
+const { knowledge } = require('./knowledgeBase');
 
 // 2. INITIALIZATION
 const app = express();
@@ -18,16 +18,15 @@ connectDB(); // Connect to MongoDB
 
 // 4. MIDDLEWARE
 app.use(cors());
-app.use(express.json()); // This is crucial for parsing JSON request bodies
-
-// --- REMOVED: The first app.listen() call was here. It's an error to start the server twice. ---
+app.use(express.json());
 
 // 5. API ROUTES
+
+// --- Contact Form Route ---
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, mobile, subject, message } = req.body;
 
-        // --- ADDED: Basic validation ---
         if (!name || !email || !message) {
             return res.status(400).json({ error: 'Name, email, and message are required fields.' });
         }
@@ -40,11 +39,8 @@ app.post('/api/contact', async (req, res) => {
             message
         });
 
-        // Save the form submission to the database
         await newContact.save();
 
-        // --- MODIFIED: Updated Nodemailer logic to use async/await ---
-        // This makes error handling for just the email part cleaner.
         try {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -72,13 +68,12 @@ app.post('/api/contact', async (req, res) => {
             };
 
             await transporter.sendMail(mailOptions);
+            console.log('Email notification sent successfully!');
+
         } catch (emailError) {
-            // If the email fails to send, log the error but don't fail the entire request.
-            // The data is already saved to the database.
             console.error('Error sending email:', emailError);
         }
 
-        // Send a success response to the client
         res.status(200).json({ success: 'Message sent and saved successfully!' });
 
     } catch (error) {
@@ -87,7 +82,61 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// 6. START THE SERVER (This is the only place it should be)
+// --- AI Assistant Route ---
+app.post('/api/assistant', async (req, res) => {
+    // ADDED: Debugging line to check the API key
+    console.log("My API Key is:", process.env.GEMINI_API_KEY); 
+
+    const userQuery = req.body.query;
+
+    if (!userQuery) {
+        return res.status(400).json({ error: 'Query is required.' });
+    }
+
+    try {
+        const systemPrompt = `You are a friendly and professional AI assistant for Soumyadip Bhattacharya's portfolio. Your name is Sigma. Your goal is to answer questions about Soumyadip based ONLY on the context provided below. Be conversational and helpful. If the question is outside the context, politely state that you can only answer questions about Soumyadip's professional life and portfolio.
+
+        Context:
+        ${knowledge}`;
+        
+        const apiKey = process.env.GEMINI_API_KEY; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: {
+                parts: [{ text: systemPrompt }]
+            },
+        };
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`API call failed with status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (aiResponse) {
+            res.json({ reply: aiResponse });
+        } else {
+            res.json({ reply: "I'm sorry, I couldn't generate a response at this moment. Please try again." });
+        }
+
+    } catch (error) {
+        console.error('Error with AI Assistant:', error);
+        res.status(500).json({ error: 'Failed to get response from AI assistant.' });
+    }
+});
+
+
+// 6. START THE SERVER
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+

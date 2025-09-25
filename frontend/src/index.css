@@ -1318,3 +1318,1159 @@ span {
     font-size: 1.4rem;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Default Theme: Dark Mode */
+:root {
+  --bg-color: #081b29;
+  --second-bg-color: #112e42;
+  --text-color: #ededed;
+  --main-color: #00b3ff;
+}
+
+/* Light Theme */
+body.light-theme {
+  --bg-color: #f0f2f5;
+  --second-bg-color: #ffffff;
+  --text-color: #1c1e21;
+  --main-color: #007bff;
+}
+
+/* Synthwave Theme */
+body.synthwave-theme {
+  --bg-color: #241b3a;
+  --second-bg-color: #3c2f5a;
+  --text-color: #f0e6ff;
+  --main-color: #ff00ff;
+}
+
+/* Study Theme */
+body.study-theme {
+  --bg-color: #f4f1ea;
+  --second-bg-color: #e9e4d9;
+  --text-color: #5b4636;
+  --main-color: #8b4513;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ========= HEADER STYLES ========= */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: .3s;
+}
+
+.header.sticky {
+    background: rgba(13, 13, 13, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+/* New container for logo and theme switcher */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Adjust space between switcher and logo */
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.navbar a {
+    font-size: 1.7rem;
+    color: var(--text-color);
+    font-weight: 500;
+    margin-left: 3.5rem;
+    transition: .3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--main-color);
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    cursor: pointer;
+    display: none;
+}
+
+/* ========= THEME SWITCHER STYLES ========= */
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0;
+  border: 2px solid var(--text-color);
+  transition: transform 0.2s ease;
+}
+
+.theme-btn:hover {
+  transform: scale(1.2);
+}
+
+.theme-btn.dark { background-color: #081b29; }
+.theme-btn.light { background-color: #f0f2f5; }
+.theme-btn.synthwave { background-color: #241b3a; }
+.theme-btn.study { background-color: #f4f1ea; }
+
+.desktop-theme-switcher {
+    margin: 0; /* Ensures it's visible on desktop */
+}
+
+.mobile-theme-switcher {
+    display: none; /* Hidden on desktop */
+}
+
+/* ========= HEADER MEDIA QUERIES (for responsiveness) ========= */
+@media (max-width: 991px) {
+    .header {
+        padding: 2rem 4%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        background: var(--bg-color);
+    }
+    #menu-icon {
+        display: block;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 100%;
+        padding: 1rem 4%;
+        background: var(--bg-color);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+        transition: .25s ease;
+        transition-delay: .25s;
+    }
+
+    .navbar.active {
+        left: 0;
+        transition-delay: 0s;
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+        text-align: center;
+    }
+    
+    /* Mobile Theme Switcher Visibility */
+    .desktop-theme-switcher {
+        display: none; /* Hide the desktop switcher on mobile */
+    }
+
+    .mobile-theme-switcher {
+        display: block; /* Show the mobile switcher in the nav menu */
+        padding: 2rem 0;
+        text-align: center;
+    }
+}
+
+
+/* ========= NEW FOOTER STYLES (COPYRIGHT LEFT) ========= */
+.footer {
+    padding: 3rem 9% 3rem;
+    background: var(--second-bg-color);
+    color: var(--text-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Pushes children to opposite ends */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12rem;
+}
+
+/* Left side copyright text */
+.footer-text p {
+    font-size: 1.4rem;
+}
+
+/* Right side container for main content and arrow */
+.footer-right-cluster {
+    display: flex;
+    align-items: center;
+    gap: 28rem;
+}
+
+.footer-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+.footer-section h4 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: var(--main-color);
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+
+.footer-section p,
+.footer-section a {
+    font-size: 1.4rem;
+    color: #ccc;
+    transition: color .3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--main-color);
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background: transparent;
+    border: .2rem solid var(--main-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    color: var(--main-color);
+    transition: .5s ease;
+}
+
+.footer-social a:hover {
+    background: var(--main-color);
+    color: var(--second-bg-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+.footer-iconTop a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: var(--main-color);
+    border-radius: .8rem;
+    transition: .5s ease;
+}
+
+.footer-iconTop a:hover {
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+.footer-iconTop a i {
+    font-size: 2.4rem;
+    color: var(--second-bg-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .footer-content {
+        flex-direction: column-reverse; /* Stacks right cluster on top of copyright */
+        align-items: center;
+        text-align: center;
+    }
+    .footer-right-cluster {
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+    .footer-main {
+        justify-content: center;
+    }
+    .footer-text {
+        margin-top: 2rem;
+    }
+}
+
+/* ========= ADD THIS FOR CLICKABLE FOOTER LINK ========= */
+
+.footer-block-link {
+    text-decoration: none; /* Removes the default underline from the link */
+    transition: transform 0.3s ease;
+    display: block; /* Ensures the entire block area is clickable */
+    padding: 1rem; /* Optional: adds some clickable space around the text */
+    border-radius: .8rem; /* Optional: rounds the corners of the clickable area */
+}
+
+/* Add a subtle "lift" effect on hover to show it's interactive */
+.footer-block-link:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.05); /* Optional: slight highlight on hover */
+}
+
+/* Ensure the text inside the link has the correct color and is not overridden */
+.footer-block-link h4, .footer-block-link p {
+    color: inherit;
+    pointer-events: none; /* Ensures the link itself is the only clickable target */
+}
+
+.footer-block-link h4 {
+    color: var(--main-color);
+}
+
+.footer-block-link p {
+    color: #ccc;
+}
+
+
+/* ========= COPYRIGHT MODAL STYLES ========= */
+
+/* Style for the clickable copyright text in the footer */
+.copyright-link {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: .3rem;
+    transition: color 0.3s ease;
+}
+
+.copyright-link:hover {
+    color: var(--main-color);
+}
+
+/* The dark background overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of everything */
+}
+
+/* The modal content box */
+.modal-content {
+    background: var(--second-bg-color);
+    padding: 3rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    border: .2rem solid var(--main-color);
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* The close button */
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    color: var(--main-color);
+}
+
+.modal-content h3 {
+    font-size: 2.2rem;
+    color: var(--main-color);
+    margin-bottom: 1.5rem;
+}
+
+.modal-content h4 {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.modal-content p, .modal-content ul {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.modal-content ul {
+    padding-left: 2rem;
+}
+
+.modal-content a {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+/* A simple fade-in animation for the modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========= GALLERY MODAL STYLES ========= */
+
+/* Style for the new Gallery button in the footer */
+.footer-gallery-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-color);
+}
+.footer-gallery-btn h4, .footer-gallery-btn p {
+    transition: color 0.3s ease;
+}
+.footer-gallery-btn:hover h4, .footer-gallery-btn:hover p {
+    color: var(--main-color);
+}
+
+
+/* Modal Overlay */
+.gallery-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Higher than copyright modal */
+    padding: 2rem;
+}
+
+/* Modal Content Box */
+.gallery-modal-content {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 900px;
+    height: 90%;
+    max-height: 700px;
+    position: relative;
+    border: .2rem solid var(--main-color);
+    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Close Button */
+.gallery-modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 3rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+.gallery-modal-close-btn:hover {
+    color: var(--main-color);
+    transform: rotate(90deg);
+}
+
+/* Tab Navigation */
+.gallery-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--second-bg-color);
+    padding-bottom: 1rem;
+}
+.gallery-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+.gallery-tab:hover {
+    background: var(--second-bg-color);
+    color: var(--main-color);
+}
+.gallery-tab.active {
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+/* Content Area */
+.gallery-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Enable scrolling for content */
+    padding-right: 1rem; /* Space for scrollbar */
+}
+
+/* Achievements & Interests Styling */
+.achievement-list h4, .interest-content h4 {
+    font-size: 2rem;
+    color: var(--main-color);
+    margin-bottom: 1rem;
+}
+.achievement-list ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+}
+.achievement-list li, .interest-content p {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Photo Gallery Grid */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+.photo-item {
+    border-radius: .8rem;
+    overflow: hidden;
+    position: relative;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+    /* Prevent right-click and selection */
+    pointer-events: none;
+    user-select: none;
+}
+.photo-item:hover img {
+    transform: scale(1.1);
+}
+
+/* ========= NESTED PHOTO TABS STYLES ========= */
+
+.photo-sub-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--second-bg-color);
+}
+
+.photo-sub-tabs button {
+    background: var(--second-bg-color);
+    border: 1px solid transparent;
+    border-radius: .5rem;
+    padding: .8rem 1.5rem;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.photo-sub-tabs button:hover {
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+.photo-sub-tabs button.active {
+    background: var(--main-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 .5rem var(--main-color);
+}
+
+/* ========= TIMETABLE STYLES ========= */
+.timetable-container {
+    width: 100%;
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+}
+
+.timetable-container h4 {
+    font-size: 2rem;
+    color: var(--main-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.timetable {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px; /* Ensures table is wide enough to be readable */
+}
+
+.timetable th, .timetable td {
+    border: 1px solid var(--second-bg-color);
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.timetable th {
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 600;
+}
+
+.timetable td {
+    background: var(--bg-color);
+}
+
+/* Color coding for activities */
+.timetable .college {
+    background-color: rgba(0, 179, 255, 0.2);
+}
+.timetable .internship {
+    background-color: rgba(138, 43, 226, 0.2);
+}
+.timetable .skill-dev {
+    background-color: rgba(50, 205, 50, 0.2);
+}
+.timetable .hobby {
+    background-color: rgba(255, 69, 0, 0.2);
+}
+.timetable .personal {
+    background-color: rgba(255, 215, 0, 0.2);
+}
+
+
+/* ========= SPORTS SECTION STYLES ========= */
+
+.sports-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.sports-category h4 {
+    font-size: 2rem;
+    color: var(--main-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sport-skill {
+    margin-bottom: 1.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: .5rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--second-bg-color);
+    border-radius: .5rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--main-color);
+    border-radius: .5rem;
+}
+
+
+
+
+/* ========= AI ASSISTANT STYLES ========= */
+
+.ai-fab {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    width: 60px;
+    height: 60px;
+    background: var(--main-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.ai-fab:hover {
+    transform: scale(1.1);
+}
+.ai-fab.hidden {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.ai-chat-window {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    width: 90%;
+    max-width: 400px;
+    height: 80%;
+    max-height: 600px;
+    background: var(--second-bg-color);
+    border-radius: 1rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    transform: scale(0);
+    transform-origin: bottom right;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.ai-chat-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.chat-header {
+    background: var(--bg-color);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--main-color);
+}
+.chat-header h3 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+}
+.chat-header button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chat-message {
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    max-width: 80%;
+    line-height: 1.6;
+    font-size: 1.4rem;
+}
+.chat-message.user {
+    background: var(--main-color);
+    color: var(--bg-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+.chat-message.ai {
+    background: var(--bg-color);
+    color: var(--text-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.chat-input {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--main-color);
+}
+.chat-input input {
+    flex-grow: 1;
+    background: var(--bg-color);
+    border: none;
+    padding: 1rem;
+    border-radius: .5rem;
+    color: var(--text-color);
+    font-size: 1.4rem;
+}
+.chat-input button {
+    background: var(--main-color);
+    border: none;
+    color: var(--bg-color);
+    padding: 0 1.5rem;
+    border-radius: .5rem;
+    margin-left: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Loading animation */
+.chat-message.loading span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    margin: 0 2px;
+    animation: bounce 1s infinite;
+}
+.chat-message.loading span:nth-child(2) { animation-delay: 0.2s; }
+.chat-message.loading span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+
+
+
+/* ========= WATERFALL LOGO ANIMATION ========= */
+
+.home {
+    /* This is crucial for positioning the animation container */
+    position: relative;
+    overflow: hidden;
+}
+
+.falling-icons-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Place it behind the main content */
+}
+
+.falling-icon {
+    position: absolute;
+    top: -10%; /* Start off-screen */
+    color: var(--main-color);
+    opacity: 0.15;
+    user-select: none; /* Prevent icons from being selected */
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh); /* Fall past the bottom of the screen */
+    }
+}
+
+
+
+/* ========= AI ASSISTANT SUPER-BOUNCE ANIMATION ========= */
+
+/* The new animation definition with more bounces */
+@keyframes superBounceDrop {
+    0% {
+        opacity: 0;
+        transform: translateY(-700px); /* Start from a very high distance */
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0); /* First major impact */
+    }
+    65% {
+        transform: translateY(-120px); /* First high bounce */
+    }
+    75% {
+        transform: translateY(0); /* Second impact */
+    }
+    85% {
+        transform: translateY(-60px); /* Second medium bounce */
+    }
+    92% {
+        transform: translateY(0); /* Third impact */
+    }
+    97% {
+        transform: translateY(-20px); /* Fourth small bounce */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Settle into final position */
+    }
+}
+
+/* Apply the new animation to the floating button */
+.ai-fab {
+    /* This tells the new animation to run, with a longer duration */
+    animation: superBounceDrop 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* This makes it wait a moment before dropping in */
+    animation-delay: 2.5s;
+    /* This keeps it hidden until the animation starts */
+    opacity: 0;
+}
+
+
+
+
+/* ========= CAREER TREE MODAL STYLES ========= */
+
+.tree-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+    padding: 2rem;
+}
+
+.tree-modal-content {
+    background: var(--bg-color);
+    padding: 3rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 800px;
+    height: 90%;
+    max-height: 700px;
+    position: relative;
+    border: .2rem solid var(--main-color);
+    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+.tree-modal-content .heading {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.tree-modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 3rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+.tree-modal-close-btn:hover {
+    color: var(--main-color);
+    transform: rotate(90deg);
+}
+
+.tree-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2rem 0;
+}
+
+/* The vertical "trunk" of the tree */
+.tree-trunk {
+    position: absolute;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: var(--second-bg-color);
+    transform: translateX(-50%);
+}
+
+.tree-branch {
+    position: relative;
+    width: 50%;
+    padding: 1rem 3rem;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+}
+
+/* Alternate branches left and right */
+.tree-branch:nth-child(odd) {
+    left: 50%;
+    padding-left: 3rem;
+}
+.tree-branch:nth-child(even) {
+    left: 0;
+    padding-right: 3rem;
+    text-align: right;
+}
+
+/* The circular "node" connecting the branch to the trunk */
+.tree-node {
+    position: absolute;
+    top: 2rem;
+    width: 20px;
+    height: 20px;
+    background: var(--main-color);
+    border-radius: 50%;
+    z-index: 5;
+    transition: transform 0.3s ease;
+}
+.tree-branch:nth-child(odd) .tree-node {
+    left: -10px;
+}
+.tree-branch:nth-child(even) .tree-node {
+    right: -10px;
+}
+.tree-branch:hover .tree-node {
+    transform: scale(1.5);
+}
+
+.tree-content {
+    background: var(--second-bg-color);
+    padding: 1.5rem;
+    border-radius: .8rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tree-branch:hover .tree-content {
+    transform: translateY(-5px);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+.tree-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: .5rem;
+}
+.tree-branch:nth-child(even) .tree-header {
+    justify-content: flex-end;
+}
+.tree-header i {
+    font-size: 2.2rem;
+    color: var(--main-color);
+}
+.tree-header h3 {
+    font-size: 1.6rem;
+}
+.tree-year {
+    font-size: 1.3rem;
+    color: #ccc;
+    margin-bottom: .5rem;
+}
+.tree-content p {
+    font-size: 1.4rem;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .tree-trunk {
+        left: 20px;
+    }
+    .tree-branch,
+    .tree-branch:nth-child(odd),
+    .tree-branch:nth-child(even) {
+        width: 100%;
+        left: 0;
+        padding-left: 50px;
+        padding-right: 1rem;
+        text-align: left;
+    }
+    .tree-branch:nth-child(even) .tree-header {
+        justify-content: flex-start;
+    }
+    .tree-node,
+    .tree-branch:nth-child(odd) .tree-node,
+    .tree-branch:nth-child(even) .tree-node {
+        left: 10px;
+    }
+}
+
+/* ========= ABOUT SECTION BUTTON SPACING FIX ========= */
+.about-content .btn-box.btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+     width: 100%;  /* This centers the buttons */
+    gap: 2rem; 
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+/* This rule styles the "Download CV" (a) button to be SOLID */
+.about-content .btn-box.btns a.btn {
+    background: var(--main-color);
+    color: var(--second-bg-color);
+}
+.about-content .btn-box.btns a.btn:hover {
+    background: transparent;
+    color: var(--main-color);
+}
+
+/* This rule styles the "Career Growth" (button) to be OUTLINED */
+.about-content .btn-box.btns button.btn {
+    background: transparent;
+    color: var(--main-color);
+}
+.about-content .btn-box.btns button.btn:hover {
+    background: var(--second-bg-color);
+    color: var(--second-bg-color);
+}
+
