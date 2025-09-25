@@ -11,7 +11,7 @@ const AiAssistant = ({ triggerWelcome }) => {
     useEffect(() => {
         const setVoice = () => {
             const voices = window.speechSynthesis.getVoices();
-            
+
             // --- CRUCIAL DEBUGGING STEP ---
             // This will show you exactly what voices your browser has.
             console.log("Available Voices:", voices);
@@ -25,7 +25,7 @@ const AiAssistant = ({ triggerWelcome }) => {
                 if (!femaleVoice) {
                     femaleVoice = voices.find(voice => voice.name.toLowerCase().includes('female'));
                 }
-                
+
                 if (femaleVoice) {
                     console.log("Found female voice:", femaleVoice.name);
                     setSelectedVoice(femaleVoice);
@@ -47,11 +47,11 @@ const AiAssistant = ({ triggerWelcome }) => {
     const speak = (text) => {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        
+
         if (selectedVoice) {
             utterance.voice = selectedVoice;
         }
-        
+
         utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
     };
@@ -82,13 +82,14 @@ const AiAssistant = ({ triggerWelcome }) => {
         e.target.reset();
 
         try {
-            const response = await fetch('http://localhost:5000/api/assistant', {
+            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+            const response = await fetch(`${apiUrl}/api/assistant`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userInput })
             });
             const data = await response.json();
-            
+
             setMessages([...newMessages, { sender: 'ai', text: data.reply }]);
             speak(data.reply);
 

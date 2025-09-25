@@ -1,6 +1,10 @@
+let IS_PROD = true;
+const server = IS_PROD ?
+    "https://portfolio-backend-9nfz.onrender.com" :
 
-const server = {
-    dev: "http://localhost:5000",
-    prod: "https://portfolio-website-a2xi.onrender.com"
-}
+    
+    "http://localhost:5000"
+
+
 export default server;
+
