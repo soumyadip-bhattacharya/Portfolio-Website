@@ -1,10 +1,8 @@
-// backend/server.js
-
 // 1. IMPORTS
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend'); // MODIFIED: Replaced nodemailer with Resend
 const connectDB = require('./config/db');
 const Contact = require('./models/Contact');
 const { knowledge } = require('./knowledgeBase');
@@ -12,6 +10,7 @@ const { knowledge } = require('./knowledgeBase');
 // 2. INITIALIZATION
 const app = express();
 const PORT = process.env.PORT || 5000;
+const resend = new Resend(process.env.RESEND_API_KEY); // ADDED: Initialize Resend
 
 // 3. DATABASE CONNECTION
 connectDB(); // Connect to MongoDB
@@ -41,37 +40,24 @@ app.post('/api/contact', async (req, res) => {
 
         await newContact.save();
 
+        // MODIFIED: This now uses Resend for reliable email delivery
         try {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-
-            const mailOptions = {
-                from: `"${name}" <${email}>`,
-                to: process.env.EMAIL_USER,
+            await resend.emails.send({
+                from: 'Portfolio Contact <onboarding@resend.dev>',
+                to: 'soumyadipwb@gmail.com', // Your personal email
                 subject: `Portfolio Contact: ${subject || 'No Subject'}`,
+                reply_to: email, // Allows you to reply directly to the visitor
                 html: `
-                    <h2>New Message from Portfolio Contact Form</h2>
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Email:</strong> ${email}</p>
-                    <p><strong>Mobile:</strong> ${mobile || 'Not provided'}</p>
-                    <hr>
-                    <h3>Message:</h3>
-                    <p>${message}</p>
-                    <p>---</p>
-                    <p>This message has been saved to the database.</p>
+                  <h2>New Message from Your Portfolio</h2>
+                  <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
+                  <p><strong>Mobile:</strong> ${mobile || 'Not provided'}</p>
+                  <hr>
+                  <h3>Message:</h3>
+                  <p>${message}</p>
                 `,
-            };
-
-            await transporter.sendMail(mailOptions);
-            console.log('Email notification sent successfully!');
-
+            });
         } catch (emailError) {
-            console.error('Error sending email:', emailError);
+            console.error('Error sending email with Resend:', emailError);
         }
 
         res.status(200).json({ success: 'Message sent and saved successfully!' });
@@ -84,8 +70,7 @@ app.post('/api/contact', async (req, res) => {
 
 // --- AI Assistant Route ---
 app.post('/api/assistant', async (req, res) => {
-    // ADDED: Debugging line to check the API key
-    console.log("My API Key is:", process.env.GEMINI_API_KEY); 
+    console.log("My API Key is:", process.env.GEMINI_API_KEY); // Debugging line
 
     const userQuery = req.body.query;
 
