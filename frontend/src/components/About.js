@@ -11,7 +11,7 @@ const About = () => {
                 <h2 className="heading">About <span>Me</span></h2>
 
                 <div className="about-img">
-                    <img src="/photo 5.jpg" alt="Soumyadip Bhattacharya's Professional Headshot" />
+                    <img src="/newimg.jpg" alt="Soumyadip Bhattacharya's Professional Headshot" />
                     <span className="circle-spin"></span>
                 </div>
 
