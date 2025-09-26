@@ -1,43 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const AiAssistant = ({ triggerWelcome }) => {
+const AiAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const chatBoxRef = useRef(null);
     const [selectedVoice, setSelectedVoice] = useState(null);
+    // 1. New state to track if the initial welcome has been played
+    const hasWelcomed = useRef(false);
+    const chatBoxRef = useRef(null);
 
     // Effect to find and set a preferred female voice
     useEffect(() => {
         const setVoice = () => {
             const voices = window.speechSynthesis.getVoices();
-
-            // --- CRUCIAL DEBUGGING STEP ---
-            // This will show you exactly what voices your browser has.
-            console.log("Available Voices:", voices);
-
             if (voices.length > 0) {
-                // Find a preferred female voice, prioritizing Google's high-quality ones.
-                let femaleVoice = voices.find(voice => voice.name === 'Google UK English Female');
-                if (!femaleVoice) {
-                    femaleVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Female'));
-                }
-                if (!femaleVoice) {
-                    femaleVoice = voices.find(voice => voice.name.toLowerCase().includes('female'));
-                }
-
-                if (femaleVoice) {
-                    console.log("Found female voice:", femaleVoice.name);
-                    setSelectedVoice(femaleVoice);
-                } else {
-                    console.log("No female voice found, using default.");
-                    setSelectedVoice(voices[0]);
-                }
+                let femaleVoice = voices.find(voice => voice.name === 'Google UK English Female') || voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Female'));
+                setSelectedVoice(femaleVoice || voices[0]);
             }
         };
-
-        // The voices list can be loaded asynchronously.
-        // This ensures we check when the component loads and when the list changes.
         setVoice();
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = setVoice;
@@ -47,30 +27,26 @@ const AiAssistant = ({ triggerWelcome }) => {
     const speak = (text) => {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-
         if (selectedVoice) {
             utterance.voice = selectedVoice;
         }
-
         utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
     };
 
-    useEffect(() => {
-        if (triggerWelcome && selectedVoice) { // Wait for a voice to be selected
+    // 2. This function now handles opening the chat and the welcome message
+    const openChatAndWelcome = () => {
+        setIsOpen(true);
+        // Only speak the welcome message the very first time the chat is opened
+        if (!hasWelcomed.current) {
             const welcomeText = "Hello! I'm Sigma, Soumyadip's AI assistant. Welcome to his portfolio! Feel free to ask me anything about his skills or projects.";
             setMessages([{ sender: 'ai', text: welcomeText }]);
-            setIsOpen(true);
             speak(welcomeText);
+            hasWelcomed.current = true; // Mark as welcomed
         }
-    }, [triggerWelcome, selectedVoice]);
-
-    useEffect(() => {
-        if (chatBoxRef.current) {
-            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-        }
-    }, [messages]);
-
+    };
+    
+    // ... (Your handleFormSubmit and other logic remains the same) ...
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const userInput = e.target.elements.userInput.value;
@@ -89,7 +65,7 @@ const AiAssistant = ({ triggerWelcome }) => {
                 body: JSON.stringify({ query: userInput })
             });
             const data = await response.json();
-
+            
             setMessages([...newMessages, { sender: 'ai', text: data.reply }]);
             speak(data.reply);
 
@@ -100,10 +76,17 @@ const AiAssistant = ({ triggerWelcome }) => {
             setIsLoading(false);
         }
     };
+    
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     return (
         <>
-            <button className={`ai-fab ${isOpen ? 'hidden' : ''}`} onClick={() => setIsOpen(true)}>
+            {/* 3. The FAB now calls the new function */}
+            <button className={`ai-fab ${isOpen ? 'hidden' : ''}`} onClick={openChatAndWelcome}>
                 <i className='bx bxs-bot'></i>
             </button>
 

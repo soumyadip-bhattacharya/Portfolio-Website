@@ -18,7 +18,7 @@ function App() {
     const [indicatorStyle, setIndicatorStyle] = useState({});
   // State for managing the current theme
   const [theme, setTheme] = useState(localStorage.getItem('portfolio-theme') || 'dark');
-  const [showWelcome, setShowWelcome] = useState(false);
+ 
 
 useEffect(() => {
         // Apply theme
@@ -93,17 +93,17 @@ useEffect(() => {
     }, [activeSection]);
     
 
-   useEffect(() => {
-        const hasBeenWelcomed = sessionStorage.getItem('hasBeenWelcomed');
-        if (!hasBeenWelcomed) {
-            const timer = setTimeout(() => {
-                setShowWelcome(true);
-                sessionStorage.setItem('hasBeenWelcomed', 'true');
-            }, 3000); // Wait 3 seconds before greeting
+  //  useEffect(() => {
+  //       const hasBeenWelcomed = sessionStorage.getItem('hasBeenWelcomed');
+  //       if (!hasBeenWelcomed) {
+  //           const timer = setTimeout(() => {
+  //               setShowWelcome(true);
+  //               sessionStorage.setItem('hasBeenWelcomed', 'true');
+  //           }, 3000); // Wait 3 seconds before greeting
 
-            return () => clearTimeout(timer); // Cleanup timer
-        }
-    }, []);
+  //           return () => clearTimeout(timer); // Cleanup timer
+  //       }
+  //   }, []);
 
     const handleThemeChange = (theme) => {
         setActiveTheme(theme);
@@ -128,7 +128,7 @@ useEffect(() => {
       <Contact />
       <Footer />
 
-       <AiAssistant triggerWelcome={showWelcome} />
+       <AiAssistant />
     </div>
   );
 }
