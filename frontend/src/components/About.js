@@ -39,7 +39,7 @@ const About = () => {
                     </div>
 
                     <div className="btn-box btns">
-                        <a href="/My_Resume.pdf" className="btn" download>Download CV</a>
+                        <a href="/soumyadip-resume.pdf" className="btn" download>Download CV</a>
                         {/* 3. Add the new button to open the modal */}
                         <button className="btn" onClick={() => setIsTreeModalOpen(true)}>Career Growth</button>
                     </div>

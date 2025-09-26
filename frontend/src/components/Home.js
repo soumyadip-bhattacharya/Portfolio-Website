@@ -70,7 +70,7 @@ const Home = () => {
                 <p>I build elegant, efficient, and user-centric web applications, turning complex challenges into clean, scalable solutions from end to end.</p>
                 <div className="btn-box">
                     {/* Changed "Hire Me" to "Download CV" for a more common convention */}
-                    <a href="/My_Resume.pdf" className="btn" download>Hire Me</a>
+                    <a href="/soumyadip-resume.pdf" className="btn" download>Hire Me</a>
                     <a href="#contact" className="btn">Let's Talk</a>
                 </div>
             </div>
