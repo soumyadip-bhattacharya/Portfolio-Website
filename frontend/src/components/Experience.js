@@ -21,7 +21,7 @@ const Experience = () => {
 
                 <div className="experience-box">
                     <div className="experience-content">
-                        <div className="year"><i className='bx bxs-calendar'></i> Oct 2024 - Dec 2024</div>
+                        <div className="year"><i className='bx bxs-calendar'></i> March 2025 - May 2025</div>
                         <h3>AICTE, Virtual</h3>
                         <h4>Data Analytics Using AI-LLMS Intern</h4>
                         <p>
@@ -32,7 +32,7 @@ const Experience = () => {
 
                 <div className="experience-box">
                     <div className="experience-content">
-                        <div className="year"><i className='bx bxs-calendar'></i> Nov 2023 - Jan 2024</div>
+                        <div className="year"><i className='bx bxs-calendar'></i> Nov 2024 - Jan 2025</div>
                         <h3>Bharat Intern, Virtual</h3>
                         <h4>Full Stack Development Intern</h4>
                         <p>
@@ -43,7 +43,7 @@ const Experience = () => {
 
                 <div className="experience-box">
                     <div className="experience-content">
-                        <div className="year"><i className='bx bxs-calendar'></i> Aug 2023 - Sep 2023</div>
+                        <div className="year"><i className='bx bxs-calendar'></i> Aug 2024 - Sep 2024</div>
                         <h3>CodSoft, Virtual</h3>
                         <h4>Full Stack Development Intern</h4>
                         <p>
