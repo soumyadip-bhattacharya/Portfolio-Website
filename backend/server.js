@@ -43,7 +43,7 @@ app.post('/api/contact', async (req, res) => {
         // MODIFIED: This now uses Resend for reliable email delivery
         try {
             await resend.emails.send({
-                from: 'Portfolio Contact <contact@soumyadip.com>',
+                from: 'Portfolio Contact <soumyadip.com>',
                 to: 'soumyadipwb@gmail.com', // Your personal email
                 subject: `Portfolio Contact: ${subject || 'No Subject'}`,
                 reply_to: email, // Allows you to reply directly to the visitor
