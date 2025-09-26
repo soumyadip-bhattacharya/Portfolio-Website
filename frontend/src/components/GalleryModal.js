@@ -22,8 +22,10 @@ const GalleryModal = ({ isOpen, onClose }) => {
 
     // --- PHOTO DATA ---
     const projectPhotos = [
-        'https://placehold.co/600x400/00b3ff/FFFFFF?text=Project+Showcase+1',
-        'https://placehold.co/600x400/00b3ff/FFFFFF?text=Project+Showcase+2',
+        'https://i.postimg.cc/D09mbzVY/Gemini-Generated-Image-otbhqbotbhqbotbh.png',
+        'https://i.postimg.cc/Z5hLy8S0/Gemini-Generated-Image-otbhqbotbhqbotbh-1.png',
+        'https://i.postimg.cc/vZMWmGrc/Gemini-Generated-Image-otbhqbotbhqbotbh-2.png',
+        'https://i.postimg.cc/tTHbKm0w/Gemini-Generated-Image-otbhqbotbhqbotbh-3.png'
     ];
     const teamEventPhotos = [
         'https://placehold.co/600x400/FF4500/FFFFFF?text=Team+Event+1',
